@@ -10,7 +10,7 @@
 
 MCP server ([Model Context Protocol](https://modelcontextprotocol.io)) providing LLM clients (Claude Desktop, Cursor, Windsurf, etc.) with tools to manage a [Remnawave](https://github.com/remnawave/) VPN panel.
 
-**Version:** 1.2.0 | **Remnawave API:** 2.7.4
+**Version:** 1.2.1 | **Remnawave API:** 2.7.4
 
 This is the [LazyGatto fork](https://github.com/LazyGatto/mcp-remnawave) of the upstream project. It includes additional host-routing fields, stricter config-profile validation, and optional Cloudflare Access headers.
 
@@ -481,7 +481,7 @@ MIT
 
 MCP-сервер ([Model Context Protocol](https://modelcontextprotocol.io)), предоставляющий LLM-клиентам (Claude Desktop, Cursor, Windsurf и др.) инструменты для управления VPN-панелью [Remnawave](https://github.com/remnawave/).
 
-**Версия:** 1.2.0 | **Remnawave API:** 2.7.4
+**Версия:** 1.2.1 | **Remnawave API:** 2.7.4
 
 Это форк [LazyGatto/mcp-remnawave](https://github.com/LazyGatto/mcp-remnawave) с дополнительными полями маршрутизации хостов, строгой валидацией конфиг-профилей и опциональной поддержкой Cloudflare Access.
 
