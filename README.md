@@ -12,6 +12,8 @@ MCP server ([Model Context Protocol](https://modelcontextprotocol.io)) providing
 
 **Version:** 1.2.0 | **Remnawave API:** 2.7.4
 
+This is the [LazyGatto fork](https://github.com/LazyGatto/mcp-remnawave) of the upstream project. It includes additional host-routing fields, stricter config-profile validation, and optional Cloudflare Access headers.
+
 ### Features
 
 - **153 tools** — full management of users, nodes, hosts, subscriptions, squads, HWID, config profiles, inbounds, API tokens, billing, snippets, external squads, settings, subscription page configs, node plugins, IP control, and metadata
@@ -19,6 +21,8 @@ MCP server ([Model Context Protocol](https://modelcontextprotocol.io)) providing
 - **5 prompts** — guided workflows for common tasks
 - **Readonly mode** — restrict to 69 read-only tools for safe monitoring
 - **Caddy support** — `X-Api-Key` header for panels behind Caddy with custom path
+- **Cloudflare Access support** — optional service-token headers for panels protected by Cloudflare Access
+- **Extended host management** — VLESS route, node assignment, hidden hosts, SNI controls, Xray templates, shuffling, and Mihomo X25519 options
 - **Type-safe** — built on [@remnawave/backend-contract](https://www.npmjs.com/package/@remnawave/backend-contract) for API route validation
 - **stdio transport** — works with Claude Desktop, Cursor, Windsurf, and any MCP-compatible client
 
@@ -30,7 +34,7 @@ MCP server ([Model Context Protocol](https://modelcontextprotocol.io)) providing
 ### Installation
 
 ```bash
-git clone https://github.com/TrackLine/mcp-remnawave.git
+git clone https://github.com/LazyGatto/mcp-remnawave.git
 cd mcp-remnawave
 npm install
 npm run build
@@ -45,12 +49,16 @@ Create a `.env` file or pass environment variables:
 | `REMNAWAVE_BASE_URL` | Yes | Panel URL (e.g. `https://vpn.example.com`) |
 | `REMNAWAVE_API_TOKEN` | Yes | API token from panel settings |
 | `REMNAWAVE_API_KEY` | No | API key for Caddy reverse proxy authentication |
+| `CF_ACCESS_CLIENT_ID` | No | Cloudflare Access service-token client ID |
+| `CF_ACCESS_CLIENT_SECRET` | No | Cloudflare Access service-token client secret |
 | `REMNAWAVE_READONLY` | No | Set to `true` to enable readonly mode |
 
 ```env
 REMNAWAVE_BASE_URL=https://vpn.example.com
 REMNAWAVE_API_TOKEN=your-api-token-here
 ```
+
+For a panel protected by Cloudflare Access, also set both service-token variables. They are sent as `CF-Access-Client-Id` and `CF-Access-Client-Secret` headers.
 
 ### Caddy with Custom Path
 
@@ -106,6 +114,8 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
         "REMNAWAVE_BASE_URL": "https://vpn.example.com",
         "REMNAWAVE_API_TOKEN": "your-api-token-here",
         "REMNAWAVE_API_KEY": "your-caddy-api-key",
+        "CF_ACCESS_CLIENT_ID": "your-cloudflare-client-id",
+        "CF_ACCESS_CLIENT_SECRET": "your-cloudflare-client-secret",
         "REMNAWAVE_READONLY": "false"
       }
     }
@@ -127,6 +137,8 @@ Add to `.cursor/mcp.json` or `.windsurf/mcp.json` in your project:
         "REMNAWAVE_BASE_URL": "https://vpn.example.com",
         "REMNAWAVE_API_TOKEN": "your-api-token-here",
         "REMNAWAVE_API_KEY": "your-caddy-api-key",
+        "CF_ACCESS_CLIENT_ID": "your-cloudflare-client-id",
+        "CF_ACCESS_CLIENT_SECRET": "your-cloudflare-client-secret",
         "REMNAWAVE_READONLY": "false"
       }
     }
@@ -471,6 +483,8 @@ MCP-сервер ([Model Context Protocol](https://modelcontextprotocol.io)), п
 
 **Версия:** 1.2.0 | **Remnawave API:** 2.7.4
 
+Это форк [LazyGatto/mcp-remnawave](https://github.com/LazyGatto/mcp-remnawave) с дополнительными полями маршрутизации хостов, строгой валидацией конфиг-профилей и опциональной поддержкой Cloudflare Access.
+
 ### Возможности
 
 - **153 инструмента** — полное управление пользователями, нодами, хостами, подписками, группами, HWID, конфиг-профилями, inbounds, API-токенами, биллингом, сниппетами, внешними группами, настройками, страницами подписок, плагинами нод, IP-контролем и метаданными
@@ -478,6 +492,8 @@ MCP-сервер ([Model Context Protocol](https://modelcontextprotocol.io)), п
 - **5 промптов** — пошаговые сценарии для типичных задач
 - **Readonly-режим** — ограничение до 69 инструментов только для чтения
 - **Поддержка Caddy** — заголовок `X-Api-Key` для панелей за Caddy с кастомным путём
+- **Поддержка Cloudflare Access** — опциональные заголовки service token для панелей за Cloudflare Access
+- **Расширенное управление хостами** — VLESS route, привязка нод, скрытые хосты, SNI, Xray-шаблоны, shuffling и Mihomo X25519
 - **Type-safe** — построен на [@remnawave/backend-contract](https://www.npmjs.com/package/@remnawave/backend-contract) для валидации API-маршрутов
 - **stdio транспорт** — работает с Claude Desktop, Cursor, Windsurf и любым MCP-совместимым клиентом
 
@@ -489,7 +505,7 @@ MCP-сервер ([Model Context Protocol](https://modelcontextprotocol.io)), п
 ### Установка
 
 ```bash
-git clone https://github.com/TrackLine/mcp-remnawave.git
+git clone https://github.com/LazyGatto/mcp-remnawave.git
 cd mcp-remnawave
 npm install
 npm run build
@@ -504,12 +520,16 @@ npm run build
 | `REMNAWAVE_BASE_URL` | Да | URL панели (например `https://vpn.example.com`) |
 | `REMNAWAVE_API_TOKEN` | Да | API-токен из настроек панели |
 | `REMNAWAVE_API_KEY` | Нет | API-ключ для аутентификации через Caddy reverse proxy |
+| `CF_ACCESS_CLIENT_ID` | Нет | Client ID service token Cloudflare Access |
+| `CF_ACCESS_CLIENT_SECRET` | Нет | Client secret service token Cloudflare Access |
 | `REMNAWAVE_READONLY` | Нет | `true` для включения режима только чтения |
 
 ```env
 REMNAWAVE_BASE_URL=https://vpn.example.com
 REMNAWAVE_API_TOKEN=ваш-api-токен
 ```
+
+Для панели за Cloudflare Access укажите обе переменные service token. Они будут передаваться в заголовках `CF-Access-Client-Id` и `CF-Access-Client-Secret`.
 
 ### Caddy с кастомным путём
 
@@ -565,6 +585,8 @@ REMNAWAVE_API_KEY=ваш-caddy-api-ключ
         "REMNAWAVE_BASE_URL": "https://vpn.example.com",
         "REMNAWAVE_API_TOKEN": "ваш-api-токен",
         "REMNAWAVE_API_KEY": "ваш-caddy-api-ключ",
+        "CF_ACCESS_CLIENT_ID": "ваш-cloudflare-client-id",
+        "CF_ACCESS_CLIENT_SECRET": "ваш-cloudflare-client-secret",
         "REMNAWAVE_READONLY": "false"
       }
     }
@@ -586,6 +608,8 @@ REMNAWAVE_API_KEY=ваш-caddy-api-ключ
         "REMNAWAVE_BASE_URL": "https://vpn.example.com",
         "REMNAWAVE_API_TOKEN": "ваш-api-токен",
         "REMNAWAVE_API_KEY": "ваш-caddy-api-ключ",
+        "CF_ACCESS_CLIENT_ID": "ваш-cloudflare-client-id",
+        "CF_ACCESS_CLIENT_SECRET": "ваш-cloudflare-client-secret",
         "REMNAWAVE_READONLY": "false"
       }
     }

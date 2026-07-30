@@ -14,6 +14,10 @@ export class RemnawaveClient {
         if (config.apiKey) {
             this.headers['X-Api-Key'] = config.apiKey;
         }
+        if (config.cfAccessClientId && config.cfAccessClientSecret) {
+            this.headers['CF-Access-Client-Id'] = config.cfAccessClientId;
+            this.headers['CF-Access-Client-Secret'] = config.cfAccessClientSecret;
+        }
     }
 
     private async request<T = unknown>(
